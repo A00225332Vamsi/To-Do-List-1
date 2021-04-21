@@ -1,0 +1,117 @@
+﻿@model TodoList1.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "ToDo Tasks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="customDiv">
+                Recently Completed Tasks
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="success">
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Completed On</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.LstRecentlyCompletedItems)
+                            {
+                                <tr class="info">
+                                    <td>@item.Title</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.DoneDate.ToString("dd/mm/yyyy")</td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="customDiv">
+                Non Completed Tasks
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="success">
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Due Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.LstAllDueItems)
+                            {
+                                <tr class="info">
+                                    <td>@item.Title</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.DueDate</td>
+                                    <td>
+                                        <a asp-controller="home" asp-action="DeleteItem"
+                                           asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="customDiv">
+                Due Tasks
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="success">
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Due Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.LstDueItems)
+                            {
+                            <tr class="active">
+                                <td>@item.Title</td>
+                                <td>@item.Description</td>
+                                <td>@item.DueDate</td>
+                                <td>
+                                    <a asp-controller="home" asp-action="CompleteItem"
+                                       asp-route-TaskId="@item.Id">Done</a>
+                                   
+                                  
+                                </td>
+                               
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .customDiv {
+        margin: 1px;
+        min-height: 300px;
+       background-color: honeydew;
+        text-align: center;
+        font-size: large
+    }
+</style>
